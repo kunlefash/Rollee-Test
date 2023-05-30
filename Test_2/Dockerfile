@@ -1,15 +1,20 @@
-FROM golang:1.17 AS builder
+FROM golang:latest
 
 WORKDIR /app
+
+# Copy the Go modules manifests
+COPY go.mod go.sum ./
+
+# Download the Go modules
+RUN go mod download
+
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o word-service .
+# Build the Go application
+RUN go build -o main .
 
-FROM alpine:latest
+# Expose the port that the server will listen on
+EXPOSE 8545
 
-WORKDIR /app
-COPY --from=builder /app/word-service .
-
-EXPOSE 8080
-
-CMD ["./word-service"]
+# Run the Go application
+CMD ["./main"]
