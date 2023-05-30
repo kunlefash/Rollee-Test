@@ -1,28 +1,20 @@
-# instructions
+# Word Service API
 
-Write an http service that will accept 2 endpoints:
+This is an HTTP service that allows you to store words and retrieve the most frequent word with a given prefix.
 
-1. The first endpoint will accept a word (eg. "animal", "house") and store it in the service. Definition for a word is the following regex `[a-zA-Z]+`
-2. The second endpoint will accept the beginning of a word (eg. "an") and returns the most frequent word stored in the service
-3. The service will be case insensitive
+## Endpoints
 
-scenario example
-```
-POST /service/word="abc"
-POST /service/word="ab"
-POST /service/word="ab"
+### Store a Word
 
-GET /service/prefix="a"     => response: "ab"
-GET /service/prevfix="ab"   => response: "ab"
-GET /service/prefix="abc"   => response: "abc"
-GET /service/prefix="d"     => response: null
-```
-Its up to you to choose a design in the API that makes sense
+Stores a word in the service.
 
-The service must be written in Go, expect that there is no restrictions in terms of technologies or designs
+- URL: `/service/word`
+- Method: `POST`
+- Parameters:
+  - `word` (string): The word to be stored.
+- Example:
+  ```bash
+  curl -X POST -d "word=animal" http://localhost:8545/service/word 
 
-Bonus points:
-- Use docker
-- Scalability
-- Performaces
+ 
 
