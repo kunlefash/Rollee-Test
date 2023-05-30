@@ -16,20 +16,19 @@ var (
 	}
 )
 
-// StorageService represents the storage for words and their frequency.
+// StorageService function represents the storage for words and their frequency.
 type StorageService struct {
 	sync.Mutex
 	store map[string]int
 }
 
-// AddWord adds a word to the storage.
 func (s *StorageService) AddWord(word string) {
 	s.Lock()
 	defer s.Unlock()
 	s.store[word]++
 }
 
-// GetMostFrequentWord returns the most frequent word starting with the given prefix.
+// GetMostFrequentWord function returns the most frequent word starting with the given prefix.
 func (s *StorageService) GetMostFrequentWord(prefix string) (string, error) {
 	s.Lock()
 	defer s.Unlock()
